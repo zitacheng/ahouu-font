@@ -1,29 +1,35 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// the translations
-// (tip move them in a JSON file and import them)
+// const lng = localStorage.getItem('lang');
+
 const resources = {
   en: {
     translation: {
       'Welcome to React': 'Welcome to React and react-i18next',
+      pseudo: 'Pseudo',
+      'join game': 'Join game',
+      'create game': 'Create game',
     },
   },
   fr: {
     translation: {
       'Welcome to React': 'Bienvenue à React et react-i18next',
+      pseudo: "Nom d'utilisateur",
+      'join game': 'Rejoindre une partie',
+      'create game': 'Créer une partie',
     },
   },
 };
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en',
+  lng: 'fr',
 
-  keySeparator: false, // we do not use keys in form messages.welcome
+  keySeparator: false,
 
   interpolation: {
-    escapeValue: false, // react already safes from xss
+    escapeValue: false,
   },
 }).then(() => {
 }).catch(() => {
