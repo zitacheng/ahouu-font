@@ -10,6 +10,7 @@ const resources = {
       pseudo: 'Pseudo',
       'join game': 'Join game',
       'create game': 'Create game',
+      'list game': 'List of current games',
     },
   },
   fr: {
@@ -18,6 +19,7 @@ const resources = {
       pseudo: "Nom d'utilisateur",
       'join game': 'Rejoindre une partie',
       'create game': 'Créer une partie',
+      'list game': 'List de jeu en cours',
     },
   },
 };

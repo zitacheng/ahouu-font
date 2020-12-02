@@ -7,13 +7,26 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { History } from 'history';
 import logo from './Assets/logo.png';
 
-export interface LoginProps { name?: string;}
-export interface LoginState { name?: string;}
+export interface LoginProps { history: History;}
+export interface LoginState { pseudo?: string;}
+
+// TODO generer un nom random lorsque le pseudo ne respect les les caractere autorisé
 
 class Login extends React.PureComponent<LoginProps, LoginState> {
+  constructor(props: LoginProps) {
+    super(props);
+    this.state = {
+      pseudo: '',
+    };
+  }
+
   render(): React.ReactNode {
+    const { history } = this.props;
+    const { pseudo } = this.state;
+
     return (
       <Container className="containerBg" fluid>
         <Col>
@@ -30,13 +43,12 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
               <Form>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>{i18n.t('pseudo', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                  <Form.Control type="text" placeholder="Bob" />
+                  <Form.Control type="text" placeholder="Bob" value={pseudo} onChange={(e) => { this.setState({ pseudo: e.currentTarget.value }); }} />
                 </Form.Group>
               </Form>
-
             </Card.Body>
-            <Button className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('join game', { lng: localStorage.getItem('lang') as string })}</Button>
-            <Button className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('create game', { lng: localStorage.getItem('lang') as string })}</Button>
+            <Button disabled={!pseudo} onClick={() => { history.push('/list'); }} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('join game', { lng: localStorage.getItem('lang') as string })}</Button>
+            <Button disabled={!pseudo} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('create game', { lng: localStorage.getItem('lang') as string })}</Button>
           </Card>
         </Col>
       </Container>
