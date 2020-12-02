@@ -16,6 +16,9 @@ const resources = {
       players: 'Players',
       status: 'Status',
       type: 'Type',
+      password: 'Password',
+      connect: 'Connection',
+      register: 'Register',
     },
   },
   fr: {
@@ -30,6 +33,9 @@ const resources = {
       players: 'Joueurs',
       status: 'Status',
       type: 'Type',
+      password: 'Mot de passe',
+      connect: 'Connexion',
+      register: "S'inscrire",
     },
   },
 };

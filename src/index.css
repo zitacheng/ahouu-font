@@ -41,3 +41,20 @@ code {
 .flagIcon:hover {
   cursor: pointer;
 }
+
+.avatar-circle {
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.pseudo {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.profile-icon {
+  width: 20px;
+  height: 20px;
+}
