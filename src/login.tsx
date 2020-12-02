@@ -9,14 +9,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { History } from 'history';
 import logo from './Assets/logo.png';
-import profile from './Assets/profile.jpg';
-import email from './Assets/email.png';
-import user from './Assets/user.png';
 
 export interface LoginProps { history: History;}
-export interface LoginState { pseudo?: string; password?: string; connected?: boolean}
-
-// TODO generer un nom random lorsque le pseudo ne respect les les caractere autorisé
+export interface LoginState { pseudo?: string; password?: string;}
 
 class Login extends React.PureComponent<LoginProps, LoginState> {
   constructor(props: LoginProps) {
@@ -24,13 +19,16 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
     this.state = {
       pseudo: '',
       password: '',
-      connected: true,
     };
   }
 
+  authenticate = (history: History): void => {
+    history.push('/Profile');
+  };
+
   render(): React.ReactNode {
     const { history } = this.props;
-    const { pseudo, password, connected } = this.state;
+    const { pseudo, password } = this.state;
 
     return (
       <Container className="containerBg" fluid>
@@ -45,52 +43,21 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
             className="mb-2 mx-auto p-2"
           >
             <Card.Body>
-              {
-                connected
-                  ? (
-                    <Col>
-                      <Image className="mx-auto avatar-circle mb-4" src={profile} />
-                      <p className="text-center pseudo">Baoz</p>
-                      <Row>
-                        <Image className="profile-icon mr-3" src={user} />
-                        <p>Zita Cheng</p>
-                      </Row>
-                      <Row>
-                        <Image className="profile-icon mr-3" src={email} />
-                        <p>zita.cheng@epitech.eu</p>
-                      </Row>
-                    </Col>
-                  )
-                  : (
-                    <Form>
-                      <Form.Group controlId="formBasicPseudo">
-                        <Form.Label>{i18n.t('pseudo', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                        <Form.Control type="text" placeholder="Bob" value={pseudo} onChange={(e) => { this.setState({ pseudo: e.currentTarget.value }); }} />
-                      </Form.Group>
-                      <Form.Group controlId="formBasicPass">
-                        <Form.Label>{i18n.t('password', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                        <Form.Control type="password" value={password} onChange={(e) => { this.setState({ password: e.currentTarget.value }); }} />
-                      </Form.Group>
-                    </Form>
-                  )
-              }
-
+              <Form>
+                <Form.Group controlId="formBasicPseudo">
+                  <Form.Label>{i18n.t('pseudo', { lng: localStorage.getItem('lang') as string })}</Form.Label>
+                  <Form.Control type="text" placeholder="Bob" value={pseudo} onChange={(e) => { this.setState({ pseudo: e.currentTarget.value }); }} />
+                </Form.Group>
+                <Form.Group controlId="formBasicPass">
+                  <Form.Label>{i18n.t('password', { lng: localStorage.getItem('lang') as string })}</Form.Label>
+                  <Form.Control type="password" value={password} onChange={(e) => { this.setState({ password: e.currentTarget.value }); }} />
+                </Form.Group>
+              </Form>
             </Card.Body>
-            {
-              connected
-                ? (
-                  <Row>
-                    <Button onClick={() => { history.push('/list'); }} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('join game', { lng: localStorage.getItem('lang') as string })}</Button>
-                    <Button onClick={() => { }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('create game', { lng: localStorage.getItem('lang') as string })}</Button>
-                  </Row>
-                )
-                : (
-                  <Row>
-                    <Button disabled={!pseudo || !password} onClick={() => { }} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('connect', { lng: localStorage.getItem('lang') as string })}</Button>
-                    <Button onClick={() => { }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('register', { lng: localStorage.getItem('lang') as string })}</Button>
-                  </Row>
-                )
-            }
+            <Row>
+              <Button disabled={!pseudo || !password} onClick={() => { this.authenticate(history); }} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('connect', { lng: localStorage.getItem('lang') as string })}</Button>
+              <Button onClick={() => { }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('register', { lng: localStorage.getItem('lang') as string })}</Button>
+            </Row>
           </Card>
         </Col>
       </Container>

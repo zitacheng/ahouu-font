@@ -58,3 +58,11 @@ code {
   width: 20px;
   height: 20px;
 }
+
+.edit-icon {
+  width: 20px;
+}
+
+.edit-icon:hover {
+  cursor: pointer;
+}

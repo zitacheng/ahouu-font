@@ -19,6 +19,8 @@ const resources = {
       password: 'Password',
       connect: 'Connection',
       register: 'Register',
+      deconnection: 'Log out',
+      edit: 'Edit',
     },
   },
   fr: {
@@ -36,6 +38,8 @@ const resources = {
       password: 'Mot de passe',
       connect: 'Connexion',
       register: "S'inscrire",
+      deconnection: 'Se déconnecter',
+      edit: 'Modifier',
     },
   },
 };
