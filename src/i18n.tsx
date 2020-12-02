@@ -11,6 +11,11 @@ const resources = {
       'join game': 'Join game',
       'create game': 'Create game',
       'list game': 'List of current games',
+      id: 'ID',
+      name: 'Name',
+      players: 'Players',
+      status: 'Status',
+      type: 'Type',
     },
   },
   fr: {
@@ -20,6 +25,11 @@ const resources = {
       'join game': 'Rejoindre une partie',
       'create game': 'Créer une partie',
       'list game': 'List de jeu en cours',
+      id: 'ID',
+      name: 'Nom',
+      players: 'Joueurs',
+      status: 'Status',
+      type: 'Type',
     },
   },
 };
