@@ -29,6 +29,7 @@ const resources = {
       create: 'Create',
       public: 'Public',
       private: 'Private',
+      'not found': 'Page not found',
     },
   },
   fr: {
@@ -56,6 +57,7 @@ const resources = {
       create: 'Créer',
       public: 'Public',
       private: 'Privée',
+      'not found': 'Page introuvable',
     },
   },
 };

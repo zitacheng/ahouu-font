@@ -3,6 +3,7 @@ import './App.css';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Login from './login';
 import Multilang from './Multilang';
+import NotFound from './Component/NotFound';
 import Lobby from './Game/Lobby';
 import PartyList from './Game/PartyList';
 import Profile from './Account/Profile';
@@ -22,6 +23,7 @@ const App: React.FC = () => (
         <Route path="/register" exact component={Register} />
         <Route path="/lobby" exact component={Lobby} />
         <Route path="/list" exact component={PartyList} />
+        <Route path="*" exact component={NotFound} />
       </Switch>
     </Router>
   </div>
