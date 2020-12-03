@@ -26,11 +26,15 @@ class Lobby extends React.PureComponent<LobbytProps, LobbytState> {
           <Row>
             <p className="title mx-auto my-2">{i18n.t('players', { lng: localStorage.getItem('lang') as string })}</p>
           </Row>
-          {
+          <Row>
+            {
             players?.map((player) => (
-              <p>{player.pseudo}</p>
+              <Col>
+                <p>{player.pseudo}</p>
+              </Col>
             ))
           }
+          </Row>
           <Row className="">
             <Button onClick={() => {}} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('play', { lng: localStorage.getItem('lang') as string })}</Button>
           </Row>
