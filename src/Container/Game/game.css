@@ -8,3 +8,117 @@
   border-radius: 15px;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.14);
 }
+
+.lobby-circle {
+  object-fit: cover;
+  width: 120px;
+  border-radius: 50%;
+}
+
+.game-circle {
+  object-fit: cover;
+  width: 60px;
+  border-radius: 50%;
+}
+
+.lobby-kick {
+  width: 25px;
+  position: absolute;
+  top: 0px;
+  left: 5px;
+}
+
+.avatar-pos {
+  position: relative;
+}
+
+.chatBg {
+  background: rgb(53, 58, 66);
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.14);
+  height: 75vh;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  position: relative;
+}
+
+.chatInput {
+  position: absolute;
+  bottom: 10px;
+  width: 80% !important;
+  border-radius: 20px !important;
+}
+
+.send-icon {
+  width: 25px;
+  position: absolute;
+  bottom: 15px;
+  right: 5%;
+}
+
+.chatContent {
+  overflow: auto;
+  margin-bottom: 50px;
+  height: 80%;
+}
+
+.bubble {
+  position: relative;
+  width: 200px;
+  height: auto;
+  padding: 0px;
+  background: #f14d4d;
+  -webkit-border-radius: 13px;
+  -moz-border-radius: 13px;
+  border-radius: 13px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  box-shadow: 0px 2px 6px 0px rgba(235, 235, 235, 0.14);
+}
+
+.bubble:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 4px 17px 3px 0;
+  border-color: transparent #f14d4d;
+  display: block;
+  width: 0;
+  z-index: 1;
+  margin-top: -4px;
+  left: -17px;
+  top: 50%;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.14);
+}
+
+.bubbleMe {
+  position: relative;
+  width: 200px;
+  height: auto;
+  padding: 0px;
+  background: #1a1e25;
+  -webkit-border-radius: 13px;
+  -moz-border-radius: 13px;
+  border-radius: 13px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  box-shadow: 0px 2px 6px 0px rgba(235, 235, 235, 0.14);
+}
+
+.bubbleMe:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 4px 0 4px 17px;
+  border-color: transparent #1a1e25;
+  display: block;
+  width: 0;
+  z-index: 1;
+  margin-top: -4px;
+  right: -17px;
+  top: 50%;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.14);
+}

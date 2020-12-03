@@ -31,6 +31,8 @@ const resources = {
       private: 'Private',
       'not found': 'Page not found',
       play: 'Play',
+      chat: 'Chat',
+      playing: 'Playing',
     },
   },
   fr: {
@@ -60,6 +62,8 @@ const resources = {
       private: 'Privée',
       'not found': 'Page introuvable',
       play: 'Jouer',
+      chat: 'Chat',
+      playing: 'En jeu',
     },
   },
 };
