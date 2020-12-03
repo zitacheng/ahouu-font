@@ -40,7 +40,7 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
             bg="dark"
             text="white"
             style={{ width: '18rem' }}
-            className="mb-2 mx-auto p-2"
+            className="mb-2 mx-auto p-2 cardShadow"
           >
             <Card.Body>
               <Form>

@@ -61,7 +61,7 @@ class Profile extends React.PureComponent<ProfileProps, ProfileState> {
             bg="dark"
             text="white"
             style={{ width: '18rem' }}
-            className="mb-2 mx-auto p-2"
+            className="mb-2 mx-auto p-2 cardShadow"
           >
             <Card.Body>
               <Row>

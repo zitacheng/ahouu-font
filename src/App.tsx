@@ -21,7 +21,7 @@ const App: React.FC = () => (
         <Route path="/" exact component={Login} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/register" exact component={Register} />
-        <Route path="/lobby" exact component={Lobby} />
+        <Route path="/lobby/:roomId" exact component={Lobby} />
         <Route path="/list" exact component={PartyList} />
         <Route path="*" exact component={NotFound} />
       </Switch>

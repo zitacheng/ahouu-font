@@ -30,6 +30,7 @@ const resources = {
       public: 'Public',
       private: 'Private',
       'not found': 'Page not found',
+      play: 'Play',
     },
   },
   fr: {
@@ -58,6 +59,7 @@ const resources = {
       public: 'Public',
       private: 'Privée',
       'not found': 'Page introuvable',
+      play: 'Jouer',
     },
   },
 };
