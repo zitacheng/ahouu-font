@@ -7,29 +7,44 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Form from 'react-bootstrap/Form';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Modal from 'react-bootstrap/Modal';
 import { History } from 'history';
 import logo from '../Assets/logo.png';
 import profile from '../Assets/profile.jpg';
-import email from '../Assets/email.png';
+import emailIcon from '../Assets/email.png';
 import user from '../Assets/user.png';
 import edit from '../Assets/edit.png';
 
 export interface ProfileProps { history: History;}
-export interface ProfileState { pseudo?: string; password?: string;}
+export interface ProfileState {
+  pseudo?: string;
+  password?: string;
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  editInf?: boolean;
+}
 
 class Profile extends React.PureComponent<ProfileProps, ProfileState> {
   constructor(props: ProfileProps) {
     super(props);
     this.state = {
-    //   pseudo: '',
-    //   password: '',
+      editInf: false,
+      pseudo: 'Baoz',
+      password: '',
+      firstname: 'Zita',
+      lastname: 'Cheng',
+      email: 'zita.cheng@epitech.eu',
     };
   }
 
   render(): React.ReactNode {
     const { history } = this.props;
-    // const { pseudo, password } = this.state;
+    const {
+      pseudo, password, editInf, firstname, lastname, email,
+    } = this.state;
 
     return (
       <Container className="containerBg" fluid>
@@ -53,19 +68,19 @@ class Profile extends React.PureComponent<ProfileProps, ProfileState> {
                     </Tooltip>
                       )}
                 >
-                  <Image className="ml-auto edit-icon" src={edit} />
+                  <Image onClick={() => { this.setState({ editInf: true }); }} className="ml-auto edit-icon" src={edit} />
                 </OverlayTrigger>
               </Row>
               <Col>
                 <Image className="mx-auto avatar-circle mb-4" src={profile} />
-                <p className="text-center pseudo">Baoz</p>
+                <p className="text-center pseudo">{pseudo}</p>
                 <Row>
                   <Image className="profile-icon mr-3" src={user} />
-                  <p>Zita Cheng</p>
+                  <p>{`${firstname as string} ${lastname as string}`}</p>
                 </Row>
                 <Row>
-                  <Image className="profile-icon mr-3" src={email} />
-                  <p>zita.cheng@epitech.eu</p>
+                  <Image className="profile-icon mr-3" src={emailIcon} />
+                  <p>{email}</p>
                 </Row>
               </Col>
             </Card.Body>
@@ -76,6 +91,53 @@ class Profile extends React.PureComponent<ProfileProps, ProfileState> {
             </Row>
           </Card>
         </Col>
+        <Modal centered show={editInf} onHide={() => { this.setState({ editInf: false }); }}>
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              {i18n.t('account inf', { lng: localStorage.getItem('lang') as string })}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Row>
+                <Form.Group controlId="formBasicPseudo" as={Col}>
+                  <Form.Label>
+                    {i18n.t('pseudo', { lng: localStorage.getItem('lang') as string })}
+                    *
+                  </Form.Label>
+                  <Form.Control type="text" placeholder="Bob" value={pseudo} onChange={(e) => { this.setState({ pseudo: e.currentTarget.value }); }} />
+                </Form.Group>
+                <Form.Group controlId="formBasicPass" as={Col}>
+                  <Form.Label>
+                    {i18n.t('password', { lng: localStorage.getItem('lang') as string })}
+                    *
+                  </Form.Label>
+                  <Form.Control type="password" value={password} onChange={(e) => { this.setState({ password: e.currentTarget.value }); }} />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group controlId="formBasicFirstname" as={Col}>
+                  <Form.Label>{i18n.t('firstname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
+                  <Form.Control type="text" placeholder="Bob" value={firstname} onChange={(e) => { this.setState({ firstname: e.currentTarget.value }); }} />
+                </Form.Group>
+                <Form.Group controlId="formBasicLastname" as={Col}>
+                  <Form.Label>{i18n.t('lastname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
+                  <Form.Control type="text" placeholder="Durand" value={lastname} onChange={(e) => { this.setState({ lastname: e.currentTarget.value }); }} />
+                </Form.Group>
+              </Form.Row>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>
+                  {i18n.t('email', { lng: localStorage.getItem('lang') as string })}
+                  *
+                </Form.Label>
+                <Form.Control type="text" placeholder="Bob@gmail.com" value={email} onChange={(e) => { this.setState({ email: e.currentTarget.value }); }} />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="dark" onClick={() => { this.setState({ editInf: false }); }}>{i18n.t('save', { lng: localStorage.getItem('lang') as string })}</Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     );
   }

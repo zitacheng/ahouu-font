@@ -24,6 +24,8 @@ const resources = {
       firstname: 'Firstname',
       lastname: 'Lastname',
       email: 'Email',
+      'account inf': 'Accoount information',
+      save: 'Save',
     },
   },
   fr: {
@@ -46,6 +48,8 @@ const resources = {
       firstname: 'Prénom',
       lastname: 'Nom',
       email: 'Address email',
+      'account inf': 'Information du compte',
+      save: 'Sauvegarder',
     },
   },
 };
