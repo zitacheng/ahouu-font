@@ -22,8 +22,8 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
     };
   }
 
-  authenticate = (history: History): void => {
-    history.push('/Profile');
+  authenticate = (history: History, profile: boolean): void => {
+    history.push(profile ? '/Profile' : '/Register');
   };
 
   render(): React.ReactNode {
@@ -55,8 +55,8 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
               </Form>
             </Card.Body>
             <Row>
-              <Button disabled={!pseudo || !password} onClick={() => { this.authenticate(history); }} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('connect', { lng: localStorage.getItem('lang') as string })}</Button>
-              <Button onClick={() => { }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('register', { lng: localStorage.getItem('lang') as string })}</Button>
+              <Button disabled={!pseudo || !password} onClick={() => { this.authenticate(history, true); }} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('connect', { lng: localStorage.getItem('lang') as string })}</Button>
+              <Button onClick={() => { this.authenticate(history, false); }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('register', { lng: localStorage.getItem('lang') as string })}</Button>
             </Row>
           </Card>
         </Col>

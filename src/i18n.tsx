@@ -21,6 +21,9 @@ const resources = {
       register: 'Register',
       deconnection: 'Log out',
       edit: 'Edit',
+      firstname: 'Firstname',
+      lastname: 'Lastname',
+      email: 'Email',
     },
   },
   fr: {
@@ -40,6 +43,9 @@ const resources = {
       register: "S'inscrire",
       deconnection: 'Se déconnecter',
       edit: 'Modifier',
+      firstname: 'Prénom',
+      lastname: 'Nom',
+      email: 'Address email',
     },
   },
 };
