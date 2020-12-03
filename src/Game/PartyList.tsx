@@ -1,16 +1,26 @@
 import * as React from 'react';
 import i18n from 'i18next';
+import { History } from 'history';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import './game.css';
 
-export interface PartyListProps { name?: string;}
+export interface PartyListProps { history?: History;}
 export interface PartyListState { name?: string;}
 
 class PartyList extends React.PureComponent<PartyListProps, PartyListState> {
+  constructor(props: PartyListProps) {
+    super(props);
+    this.state = {
+
+    };
+  }
+
   render(): React.ReactNode {
+    const { history } = this.props;
+
     return (
       <Container className="containerBg" fluid>
         <Col className="mx-auto">
@@ -28,7 +38,7 @@ class PartyList extends React.PureComponent<PartyListProps, PartyListState> {
               </tr>
             </thead>
             <tbody>
-              <tr style={{ cursor: 'pointer' }}>
+              <tr style={{ cursor: 'pointer' }} onClick={() => { history?.push('/lobby'); }}>
                 <td>1</td>
                 <td>test</td>
                 <td>10</td>

@@ -26,6 +26,9 @@ const resources = {
       email: 'Email',
       'account inf': 'Accoount information',
       save: 'Save',
+      create: 'Create',
+      public: 'Public',
+      private: 'Private',
     },
   },
   fr: {
@@ -50,6 +53,9 @@ const resources = {
       email: 'Address email',
       'account inf': 'Information du compte',
       save: 'Sauvegarder',
+      create: 'Créer',
+      public: 'Public',
+      private: 'Privée',
     },
   },
 };

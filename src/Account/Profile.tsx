@@ -10,6 +10,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Form from 'react-bootstrap/Form';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Modal from 'react-bootstrap/Modal';
+import Badge from 'react-bootstrap/Badge';
 import { History } from 'history';
 import logo from '../Assets/logo.png';
 import profile from '../Assets/profile.jpg';
@@ -25,6 +26,8 @@ export interface ProfileState {
   lastname?: string;
   email?: string;
   editInf?: boolean;
+  createRoom?: boolean;
+  publicMode?: boolean;
 }
 
 class Profile extends React.PureComponent<ProfileProps, ProfileState> {
@@ -32,6 +35,8 @@ class Profile extends React.PureComponent<ProfileProps, ProfileState> {
     super(props);
     this.state = {
       editInf: false,
+      createRoom: false,
+      publicMode: true,
       pseudo: 'Baoz',
       password: '',
       firstname: 'Zita',
@@ -43,7 +48,7 @@ class Profile extends React.PureComponent<ProfileProps, ProfileState> {
   render(): React.ReactNode {
     const { history } = this.props;
     const {
-      pseudo, password, editInf, firstname, lastname, email,
+      pseudo, password, editInf, firstname, lastname, email, createRoom, publicMode,
     } = this.state;
 
     return (
@@ -86,11 +91,29 @@ class Profile extends React.PureComponent<ProfileProps, ProfileState> {
             </Card.Body>
             <Row>
               <Button onClick={() => { history.push('/list'); }} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('join game', { lng: localStorage.getItem('lang') as string })}</Button>
-              <Button onClick={() => { }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('create game', { lng: localStorage.getItem('lang') as string })}</Button>
+              <Button onClick={() => { this.setState({ createRoom: true }); }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('create game', { lng: localStorage.getItem('lang') as string })}</Button>
               <Button onClick={() => { history.push('/'); }} className="mx-auto mb-2 btn" variant="outline-danger">{i18n.t('deconnection', { lng: localStorage.getItem('lang') as string })}</Button>
             </Row>
           </Card>
         </Col>
+        <Modal centered show={createRoom} onHide={() => { this.setState({ createRoom: false }); }}>
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              {i18n.t('create game', { lng: localStorage.getItem('lang') as string })}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Badge pill className="click mr-2 p-2" variant={`${publicMode ? 'info' : 'secondary'}`} onClick={() => { this.setState({ publicMode: true }); }}>
+              {i18n.t('public', { lng: localStorage.getItem('lang') as string })}
+            </Badge>
+            <Badge pill className="click p-2" variant={`${publicMode ? 'secondary' : 'info'}`} onClick={() => { this.setState({ publicMode: false }); }}>
+              {i18n.t('private', { lng: localStorage.getItem('lang') as string })}
+            </Badge>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="dark" onClick={() => { history.push('/lobby'); }}>{i18n.t('create', { lng: localStorage.getItem('lang') as string })}</Button>
+          </Modal.Footer>
+        </Modal>
         <Modal centered show={editInf} onHide={() => { this.setState({ editInf: false }); }}>
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">

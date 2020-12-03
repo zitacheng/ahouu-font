@@ -66,3 +66,7 @@ code {
 .edit-icon:hover {
   cursor: pointer;
 }
+
+.click {
+  cursor: pointer;
+}
