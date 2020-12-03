@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { History } from 'history';
-import logo from '../Assets/logo.png';
+import logo from '../../Assets/logo.png';
 
 export interface RegisterProps { history: History;}
 export interface RegisterState {

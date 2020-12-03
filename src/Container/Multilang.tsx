@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Image from 'react-bootstrap/Image';
-import france from './Assets/france.png';
-import usa from './Assets/usa.png';
+import france from '../Assets/france.png';
+import usa from '../Assets/usa.png';
 
 const Multilang: React.FC = (): React.ReactElement => (
   <div className="flagBlock">

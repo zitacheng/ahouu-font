@@ -1,13 +1,13 @@
 import * as React from 'react';
 import './App.css';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import Login from './login';
-import Multilang from './Multilang';
+import Login from './Container/login';
+import Multilang from './Container/Multilang';
 import NotFound from './Component/NotFound';
-import Lobby from './Game/Lobby';
-import PartyList from './Game/PartyList';
-import Profile from './Account/Profile';
-import Register from './Account/Register';
+import Lobby from './Container/Game/Lobby';
+import PartyList from './Container/Game/PartyList';
+import Profile from './Container/Account/Profile';
+import Register from './Container/Account/Register';
 import './i18n';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

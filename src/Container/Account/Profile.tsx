@@ -12,11 +12,11 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Modal from 'react-bootstrap/Modal';
 import Badge from 'react-bootstrap/Badge';
 import { History } from 'history';
-import logo from '../Assets/logo.png';
-import profile from '../Assets/profile.jpg';
-import emailIcon from '../Assets/email.png';
-import user from '../Assets/user.png';
-import edit from '../Assets/edit.png';
+import logo from '../../Assets/logo.png';
+import profile from '../../Assets/profile.jpg';
+import emailIcon from '../../Assets/email.png';
+import user from '../../Assets/user.png';
+import edit from '../../Assets/edit.png';
 
 export interface ProfileProps { history: History;}
 export interface ProfileState {
