@@ -80,3 +80,22 @@ code {
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.14);
   color: "white";
 }
+
+.inputImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  display: flex;
+  outline-style: none;
+  background-color: #ffe356;
+  box-shadow: 0px 8px 10px 1px rgba(0, 0, 0, 0.14);
+}
+
+.chooseImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  display: flex;
+  outline-style: none;
+  box-shadow: 0px 8px 10px 1px rgba(0, 0, 0, 0.14);
+}

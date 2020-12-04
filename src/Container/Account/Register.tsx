@@ -23,6 +23,8 @@ export interface RegisterState {
   file?: string;
 }
 
+// TODO outline none ou 0 pour le click des images ou button your identity
+
 class Register extends React.PureComponent<RegisterProps, RegisterState> {
   constructor(props: RegisterProps) {
     super(props);
@@ -43,6 +45,20 @@ class Register extends React.PureComponent<RegisterProps, RegisterState> {
     // TODO call back api to create account
     history.push('/Profile');
   };
+
+  handleImgChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    event.preventDefault();
+    if (!event.target || !event.target.files || event.target.files.length <= 0) return;
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        file: reader.result as string,
+        imgChanged: true,
+      });
+    };
+    if (file) reader.readAsDataURL(file);
+  }
 
   render(): React.ReactNode {
     const { history } = this.props;
@@ -77,33 +93,22 @@ class Register extends React.PureComponent<RegisterProps, RegisterState> {
                     className="mt-2"
                     style={{ display: 'none' }}
                     accept="image/*"
+                    type="file"
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      if (event && event.target && event.target.files) {
-                        this.setState({
-                          imgChanged: true,
-                          file: URL.createObjectURL(event?.target.files[0]),
-                        });
-                      }
+                      this.handleImgChange(event);
                     }}
                   />
                   {
-                    imgChanged
+                    imgChanged && file
                       ? (
                         <div
                           role="button"
                           tabIndex={0}
-                          className="mx-auto click"
+                          className="mx-auto click chooseImg"
                           onClick={() => {
                             if (inputOpenFileRef && inputOpenFileRef.current) {
                               inputOpenFileRef?.current.click();
                             }
-                          }}
-                          style={{
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50px',
-                            display: 'flex',
-                            boxShadow: '0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
                           }}
                           onKeyDown={() => { }}
                         >
@@ -123,21 +128,13 @@ class Register extends React.PureComponent<RegisterProps, RegisterState> {
                         <div
                           role="button"
                           tabIndex={0}
-                          className="mx-auto click"
+                          className="mx-auto click inputImg"
                           onClick={() => {
                             if (inputOpenFileRef && inputOpenFileRef.current) {
                               inputOpenFileRef?.current.click();
                             }
                           }}
                           onKeyDown={() => { }}
-                          style={{
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50px',
-                            display: 'flex',
-                            backgroundColor: '#FFE356',
-                            boxShadow: '0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
-                          }}
                         >
                           <Image className="my-auto mx-auto" style={{ width: '50px', height: 'auto' }} src={upload} />
                         </div>
