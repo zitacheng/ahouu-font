@@ -33,6 +33,11 @@ const resources = {
       play: 'Play',
       chat: 'Chat',
       playing: 'Playing',
+      'you are': 'You are',
+      villager: 'Villager',
+      werewolf: 'Werewolf',
+      witch: 'Witch',
+      seer: 'Seer',
     },
   },
   fr: {
@@ -64,6 +69,11 @@ const resources = {
       play: 'Jouer',
       chat: 'Chat',
       playing: 'En jeu',
+      'you are': 'Vous êtes',
+      villager: 'Villageois',
+      werewolf: 'Loup garou',
+      witch: 'Sorcière',
+      seer: 'Voyante',
     },
   },
 };
