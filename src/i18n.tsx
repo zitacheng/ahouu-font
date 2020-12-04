@@ -24,7 +24,7 @@ const resources = {
       firstname: 'Firstname',
       lastname: 'Lastname',
       email: 'Email',
-      'account inf': 'Accoount information',
+      'account inf': 'Account information',
       save: 'Save',
       create: 'Create',
       public: 'Public',

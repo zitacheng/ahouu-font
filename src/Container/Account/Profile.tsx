@@ -17,6 +17,7 @@ import profile from '../../Assets/profile.jpg';
 import emailIcon from '../../Assets/email.png';
 import user from '../../Assets/user.png';
 import edit from '../../Assets/edit.png';
+import upload from '../../Assets/upload.png';
 
 export interface ProfileProps { history: History;}
 export interface ProfileState {
@@ -28,6 +29,8 @@ export interface ProfileState {
   editInf?: boolean;
   createRoom?: boolean;
   publicMode?: boolean;
+  inputOpenFileRef?: React.RefObject<HTMLInputElement>;
+  file?: string;
 }
 
 class Profile extends React.PureComponent<ProfileProps, ProfileState> {
@@ -42,13 +45,24 @@ class Profile extends React.PureComponent<ProfileProps, ProfileState> {
       firstname: 'Zita',
       lastname: 'Cheng',
       email: 'zita.cheng@epitech.eu',
+      inputOpenFileRef: React.createRef<HTMLInputElement>(),
+      file: '',
     };
   }
 
   render(): React.ReactNode {
     const { history } = this.props;
     const {
-      pseudo, password, editInf, firstname, lastname, email, createRoom, publicMode,
+      pseudo,
+      password,
+      editInf,
+      firstname,
+      lastname,
+      email,
+      createRoom,
+      publicMode,
+      inputOpenFileRef,
+      file,
     } = this.state;
 
     return (
@@ -122,6 +136,78 @@ class Profile extends React.PureComponent<ProfileProps, ProfileState> {
           </Modal.Header>
           <Modal.Body>
             <Form>
+              <Form.Group>
+                <Form.File
+                  ref={inputOpenFileRef}
+                  className="mt-2"
+                  style={{ display: 'none' }}
+                  accept="image/*"
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    if (event && event.target && event.target.files) {
+                      this.setState({
+                        file: URL.createObjectURL(event?.target.files[0]),
+                      });
+                    }
+                  }}
+                />
+                {
+                    file
+                      ? (
+                        <div
+                          role="button"
+                          tabIndex={0}
+                          className="mx-auto click"
+                          onClick={() => {
+                            if (inputOpenFileRef && inputOpenFileRef.current) {
+                              inputOpenFileRef?.current.click();
+                            }
+                          }}
+                          style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50px',
+                            display: 'flex',
+                            boxShadow: '0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
+                          }}
+                          onKeyDown={() => { }}
+                        >
+                          <Image
+                            className="my-auto mx-auto"
+                            style={{
+                              width: '100px',
+                              height: '100px',
+                              objectFit: 'cover',
+                            }}
+                            src={file}
+                            roundedCircle
+                          />
+                        </div>
+                      )
+                      : (
+                        <div
+                          role="button"
+                          tabIndex={0}
+                          className="mx-auto click"
+                          onClick={() => {
+                            if (inputOpenFileRef && inputOpenFileRef.current) {
+                              inputOpenFileRef?.current.click();
+                            }
+                          }}
+                          onKeyDown={() => { }}
+                          style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50px',
+                            display: 'flex',
+                            backgroundColor: '#FFE356',
+                            boxShadow: '0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
+                          }}
+                        >
+                          <Image className="my-auto mx-auto" style={{ width: '50px', height: 'auto' }} src={upload} />
+                        </div>
+                      )
+                  }
+              </Form.Group>
               <Form.Row>
                 <Form.Group controlId="formBasicPseudo" as={Col}>
                   <Form.Label>

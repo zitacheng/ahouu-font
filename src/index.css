@@ -74,3 +74,9 @@ code {
 .cardShadow {
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.14);
 }
+
+.darkModal {
+  background: rgb(53, 58, 66);
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.14);
+  color: "white";
+}
