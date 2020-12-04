@@ -10,7 +10,13 @@ import dead from '../../Assets/dead.png';
 import send from '../../Assets/send.png';
 import './game.css';
 
-export interface Chat { msg?: string; sender?: string; wolfChat?: boolean; senderId?: number}
+export interface Chat {
+  msg?: string;
+  sender?: string;
+  wolfChat?: boolean;
+  senderId?: number;
+  system?: boolean
+}
 export interface UserInf {
   pseudo?: string;
   card?: number;
@@ -73,13 +79,16 @@ class Game extends React.PureComponent<GameProps, GameState> {
           msg: 'Whats up yoou', sender: 'Tata', wolfChat: false, senderId: 3,
         },
         {
-          msg: 'Toto and Zita voted for Tata', sender: 'System', wolfChat: false, senderId: -1,
+          msg: 'Toto and Tata voted for Baoz', sender: 'System', wolfChat: false, senderId: -1, system: true,
         },
         {
           msg: 'Lets  kill him', sender: 'Tata', wolfChat: true, senderId: 3,
         },
         {
           msg: 'im villager', sender: 'Baoz', wolfChat: false, senderId: 1,
+        },
+        {
+          msg: 'Baoz has been eliminated', sender: 'system', wolfChat: false, senderId: -1, system: true,
         },
       ],
     };
@@ -111,8 +120,27 @@ class Game extends React.PureComponent<GameProps, GameState> {
                 {
                   chats?.map((chat) => (
                     <div>
-                      {user?.isWolf && chat.wolfChat && <p className={`${chat.senderId === user?.id ? 'bubbleMe mb-3 ml-auto text-light' : 'bubble mb-3 text-light'}`}>{chat.msg}</p>}
-                      {!chat.wolfChat && <p className={`${chat.senderId === user?.id ? 'bubbleMe mb-3 ml-auto text-light' : 'bubble mb-3 text-light'}`}>{chat.msg}</p>}
+                      {user?.isWolf && chat.wolfChat && !chat.system
+                      && (
+                      <div>
+                        <p className={`${chat.senderId === user?.id ? 'text-right text-light mb-0' : 'text-light mb-0'}`}>{chat.sender}</p>
+                        <p className={`${chat.senderId === user?.id ? 'bubbleMe mb-3 ml-auto text-light' : 'bubble mb-3 text-light'}`}>{chat.msg}</p>
+                      </div>
+                      )}
+                      {!chat.wolfChat && !chat.system
+                      && (
+                      <div>
+                        <p className={`${chat.senderId === user?.id ? 'text-right text-light mb-0' : 'text-light mb-0'}`}>{chat.sender}</p>
+                        <p className={`${chat.senderId === user?.id ? 'bubbleMe mb-3 ml-auto text-light' : 'bubble mb-3 text-light'}`}>{chat.msg}</p>
+                      </div>
+                      )}
+                      {chat.system
+                      && (
+                      <div>
+                        <p className="text-center text-light mb-0">System</p>
+                        <p className="text-center text-warning">{chat.msg}</p>
+                      </div>
+                      )}
                     </div>
                   ))
                 }
