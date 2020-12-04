@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { History } from 'history';
 import logo from '../../Assets/logo.png';
+import upload from '../../Assets/upload.png';
 
 export interface RegisterProps { history: History;}
 export interface RegisterState {
@@ -17,6 +18,9 @@ export interface RegisterState {
   firstname?: string;
   lastname?: string;
   email?: string;
+  imgChanged?: boolean;
+  inputOpenFileRef?: React.RefObject<HTMLInputElement>;
+  file?: string;
 }
 
 class Register extends React.PureComponent<RegisterProps, RegisterState> {
@@ -28,7 +32,11 @@ class Register extends React.PureComponent<RegisterProps, RegisterState> {
       firstname: '',
       lastname: '',
       email: '',
+      imgChanged: false,
+      inputOpenFileRef: React.createRef<HTMLInputElement>(),
+      file: '',
     };
+    // this.inputOpenFileRef = React.createRef<HTMLDivElement>();
   }
 
   authenticate = (history: History): void => {
@@ -39,7 +47,14 @@ class Register extends React.PureComponent<RegisterProps, RegisterState> {
   render(): React.ReactNode {
     const { history } = this.props;
     const {
-      pseudo, password, firstname, lastname, email,
+      pseudo,
+      password,
+      firstname,
+      lastname,
+      email,
+      imgChanged,
+      inputOpenFileRef,
+      file,
     } = this.state;
 
     return (
@@ -56,6 +71,79 @@ class Register extends React.PureComponent<RegisterProps, RegisterState> {
           >
             <Card.Body>
               <Form>
+                <Form.Group controlId="formBasicImg">
+                  <Form.File
+                    ref={inputOpenFileRef}
+                    className="mt-2"
+                    style={{ display: 'none' }}
+                    accept="image/*"
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      if (event && event.target && event.target.files) {
+                        this.setState({
+                          imgChanged: true,
+                          file: URL.createObjectURL(event?.target.files[0]),
+                        });
+                      }
+                    }}
+                  />
+                  {
+                    imgChanged
+                      ? (
+                        <div
+                          role="button"
+                          tabIndex={0}
+                          className="mx-auto click"
+                          onClick={() => {
+                            if (inputOpenFileRef && inputOpenFileRef.current) {
+                              inputOpenFileRef?.current.click();
+                            }
+                          }}
+                          style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50px',
+                            display: 'flex',
+                            boxShadow: '0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
+                          }}
+                          onKeyDown={() => { }}
+                        >
+                          <Image
+                            className="my-auto mx-auto"
+                            style={{
+                              width: '100px',
+                              height: '100px',
+                              objectFit: 'cover',
+                            }}
+                            src={file}
+                            roundedCircle
+                          />
+                        </div>
+                      )
+                      : (
+                        <div
+                          role="button"
+                          tabIndex={0}
+                          className="mx-auto click"
+                          onClick={() => {
+                            if (inputOpenFileRef && inputOpenFileRef.current) {
+                              inputOpenFileRef?.current.click();
+                            }
+                          }}
+                          onKeyDown={() => { }}
+                          style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50px',
+                            display: 'flex',
+                            backgroundColor: '#FFE356',
+                            boxShadow: '0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
+                          }}
+                        >
+                          <Image className="my-auto mx-auto" style={{ width: '50px', height: 'auto' }} src={upload} />
+                        </div>
+                      )
+                  }
+                </Form.Group>
                 <Form.Group controlId="formBasicPseudo">
                   <Form.Label>
                     {i18n.t('pseudo', { lng: localStorage.getItem('lang') as string })}
@@ -98,3 +186,31 @@ class Register extends React.PureComponent<RegisterProps, RegisterState> {
 }
 
 export default Register;
+
+// {
+//   this.state.imgChanged
+//    ?
+//      <Image
+//        className="pointerClick"
+//        style={{
+//          width: '100px', height: '100px', objectFit: 'cover',
+// boxShadow: '0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
+//        }}
+//        src={logo}
+//        onClick={() => {inputOpenFileRef.current.click()}}
+//        roundedCircle
+//      />
+
+//    :
+//      <div
+//        className="mx-auto pointerClick"
+//        onClick={() => {inputOpenFileRef?.current.click()}}
+//        style={{
+//          backgroundColor: '#7EB681', width: '100px', height: '100px',
+// borderRadius: '50px', display: 'flex',
+//        }}
+//      >
+//        <Image className="my-auto mx-auto" style={{ width: '50px', height: 'auto' }} src={logo} />
+//      </div>
+// }
+// `data:image/jpeg;base64
