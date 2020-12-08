@@ -1,6 +1,6 @@
 import * as React from 'react';
-import './App.css';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { StoreProvider } from 'easy-peasy';
 import Login from './Container/login';
 import Multilang from './Container/Multilang';
 import NotFound from './Component/NotFound';
@@ -11,11 +11,12 @@ import Profile from './Container/Account/Profile';
 import Register from './Container/Account/Register';
 import './i18n';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import store from './Store';
 
 if (!localStorage.getItem('lang')) localStorage.setItem('lang', 'fr');
 
 const App: React.FC = () => (
-  <div>
+  <StoreProvider store={store}>
     <Multilang />
     <Router>
       <Switch>
@@ -28,7 +29,7 @@ const App: React.FC = () => (
         <Route path="*" exact component={NotFound} />
       </Switch>
     </Router>
-  </div>
+  </StoreProvider>
 );
 
 export default App;
