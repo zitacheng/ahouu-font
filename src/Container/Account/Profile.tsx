@@ -19,34 +19,74 @@ import userIcon from '../../Assets/user.png';
 import edit from '../../Assets/edit.png';
 import upload from '../../Assets/upload.png';
 import { useStoreState, useStoreActions } from '../../Store';
+import services, { UserUpdateInput } from '../../services';
 
 export interface ProfileProps { history: History;}
 
-function handleImgChange(event: React.ChangeEvent<HTMLInputElement>,
-  setFile: React.Dispatch<React.SetStateAction<string>>): void {
-  event.preventDefault();
-  if (!event.target || !event.target.files || event.target.files.length <= 0) return;
-  const reader = new FileReader();
-  const file = event.target.files[0];
-  reader.onloadend = () => {
-    setFile(reader.result as string);
-  };
-  if (file) reader.readAsDataURL(file);
-}
-
 const Profile = (props: ProfileProps): React.ReactElement => {
   const user = useStoreState((state) => state.item);
-  const [pseudo, setPseudo] = React.useState(user?.pseudo as string);
+  const [username, setUsername] = React.useState(user?.username as string);
   const [password, setPassword] = React.useState('');
-  const [firstname, setFirstname] = React.useState(user?.firstname as string);
-  const [lastname, setLastname] = React.useState(user?.lastname as string);
   const [email, setEmail] = React.useState(user?.email as string);
+  const [picture, setPicture] = React.useState<string>(user?.picture as string);
   const [editInf, setEditInf] = React.useState(false);
   const [createRoom, setCreateRoom] = React.useState(false);
   const [publicMode, setPublicMode] = React.useState(false);
   const inputOpenFileRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
-  const [file, setFile] = React.useState('');
+  const [file, setFile] = React.useState<File | null>(null);
   const setUser = useStoreActions((actions) => actions.setUser);
+
+  React.useEffect(() => {
+    if (!user) return;
+
+    setUsername(user.username);
+    setEmail(user.email);
+    setPicture(user.picture || '');
+  }, [user]);
+
+  const handleImgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (!event.target || !event.target.files || event.target.files.length <= 0) return;
+    setFile(event.target.files[0]);
+  };
+
+  const onSubmit = async () => {
+    try {
+      const input: UserUpdateInput = {
+        email,
+        username,
+        password,
+      };
+
+      if (file) input.picture = file;
+      const updated = await services.users.update(input, user);
+
+      setUser(updated);
+      setEditInf(false);
+    } catch (e) {
+      const error = e as Error;
+
+      // TODO: handle errors
+      switch (error.message) {
+        case 'users/invalid-token':
+          // Redirect to login page
+          break;
+        case 'users/invalid-body':
+        case 'users/invalid-email':
+        case 'users/invalid-password':
+          // Wrong user input
+          break;
+        case 'users/email-already-in-used':
+          // Email already used
+          break;
+        case 'users/username-already-in-used':
+          // Username already used
+          break;
+        default:
+          break;
+      }
+    }
+  };
 
   return (
     <Container className="containerBg" fluid>
@@ -74,11 +114,10 @@ const Profile = (props: ProfileProps): React.ReactElement => {
               </OverlayTrigger>
             </Row>
             <Col>
-              <Image className="mx-auto avatar-circle mb-4" src={profile} />
-              <p className="text-center pseudo">{pseudo}</p>
+              <Image className="mx-auto avatar-circle mb-4" src={picture || profile} />
               <Row>
                 <Image className="profile-icon mr-3" src={userIcon} />
-                <p>{`${firstname} ${lastname}`}</p>
+                <p className="text-center username">{username}</p>
               </Row>
               <Row>
                 <Image className="profile-icon mr-3" src={emailIcon} />
@@ -126,9 +165,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
                 style={{ display: 'none' }}
                 accept="image/*"
                 type="file"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleImgChange(event, setFile);
-                }}
+                onChange={handleImgChange}
               />
               {
                     file
@@ -151,7 +188,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
                               height: '100px',
                               objectFit: 'cover',
                             }}
-                            src={file}
+                            src={URL.createObjectURL(file)}
                             roundedCircle
                           />
                         </div>
@@ -176,10 +213,10 @@ const Profile = (props: ProfileProps): React.ReactElement => {
             <Form.Row>
               <Form.Group controlId="formBasicPseudo" as={Col}>
                 <Form.Label>
-                  {i18n.t('pseudo', { lng: localStorage.getItem('lang') as string })}
+                  {i18n.t('username', { lng: localStorage.getItem('lang') as string })}
                   *
                 </Form.Label>
-                <Form.Control type="text" placeholder="Bob" value={pseudo} onChange={(e) => { setPseudo(e.currentTarget.value); }} />
+                <Form.Control type="text" placeholder="Bob" value={username} onChange={(e) => { setUsername(e.currentTarget.value); }} />
               </Form.Group>
               <Form.Group controlId="formBasicPass" as={Col}>
                 <Form.Label>
@@ -187,16 +224,6 @@ const Profile = (props: ProfileProps): React.ReactElement => {
                   *
                 </Form.Label>
                 <Form.Control type="password" value={password} onChange={(e) => { setPassword(e.currentTarget.value); }} />
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group controlId="formBasicFirstname" as={Col}>
-                <Form.Label>{i18n.t('firstname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                <Form.Control type="text" placeholder="Bob" value={firstname} onChange={(e) => { setFirstname(e.currentTarget.value); }} />
-              </Form.Group>
-              <Form.Group controlId="formBasicLastname" as={Col}>
-                <Form.Label>{i18n.t('lastname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                <Form.Control type="text" placeholder="Durand" value={lastname} onChange={(e) => { setLastname(e.currentTarget.value); }} />
               </Form.Group>
             </Form.Row>
             <Form.Group controlId="formBasicEmail">
@@ -209,7 +236,12 @@ const Profile = (props: ProfileProps): React.ReactElement => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="dark" onClick={() => { setUser({ id: 123, pseudo }); setEditInf(false); }}>{i18n.t('save', { lng: localStorage.getItem('lang') as string })}</Button>
+          <Button
+            variant="dark"
+            onClick={onSubmit}
+          >
+            {i18n.t('save', { lng: localStorage.getItem('lang') as string })}
+          </Button>
         </Modal.Footer>
       </Modal>
     </Container>

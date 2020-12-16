@@ -7,9 +7,16 @@ export type User = {
   token: string
 };
 
-export type RegisterInput = {
+export type UserRegisterInput = {
   email: string
   password: string
   username: string
-  // picture?: File // TODO: handle File
+  picture?: File
+};
+
+export type UserUpdateInput = {
+  email: string
+  password: string
+  username: string
+  picture?: File
 };

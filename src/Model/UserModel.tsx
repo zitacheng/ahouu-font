@@ -1,25 +1,16 @@
 import { Action, action } from 'easy-peasy';
-
-interface UserInterface {
-  pseudo: string;
-  card?: number;
-  isWolf?: boolean;
-  id: number;
-  dead?: boolean;
-  email?: string;
-  firstname?: string;
-  lastname?: string;
-}
+import { User } from '../services';
 
 export interface UserModel {
-  item?: UserInterface;
-  setUser: Action<UserModel, UserInterface>;
+  item?: User;
+  setUser: Action<UserModel, User>;
 }
 
 const user: UserModel = {
   item: undefined,
   setUser: action((state, payload) => {
-    state.item = payload; // eslint-disable-line no-param-reassign
+    // eslint-disable-next-line no-param-reassign
+    state.item = payload;
   }),
 };
 

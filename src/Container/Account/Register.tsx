@@ -11,33 +11,61 @@ import { History } from 'history';
 import logo from '../../Assets/logo.png';
 import upload from '../../Assets/upload.png';
 import { useStoreActions } from '../../Store';
+import services, { UserRegisterInput } from '../../services';
 
 export interface RegisterProps { history: History;}
 
-function handleImgChange(event: React.ChangeEvent<HTMLInputElement>,
-  setFile: React.Dispatch<React.SetStateAction<string>>,
-  setImgChanged: React.Dispatch<React.SetStateAction<boolean>>): void {
-  event.preventDefault();
-  if (!event.target || !event.target.files || event.target.files.length <= 0) return;
-  const reader = new FileReader();
-  const file = event.target.files[0];
-  reader.onloadend = () => {
-    setFile(reader.result as string);
-    setImgChanged(true);
-  };
-  if (file) reader.readAsDataURL(file);
-}
-
 const Register = (props: RegisterProps): React.ReactElement => {
-  const [pseudo, setPseudo] = React.useState('');
+  const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [firstname, setFirstname] = React.useState('');
-  const [lastname, setLastname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [imgChanged, setImgChanged] = React.useState(false);
   const inputOpenFileRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
-  const [file, setFile] = React.useState('');
+  const [file, setFile] = React.useState<File | null>(null);
   const setUser = useStoreActions((actions) => actions.setUser);
+
+  const handleImgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (!event.target || !event.target.files || event.target.files.length <= 0) return;
+
+    setImgChanged(true);
+    setFile(event.target.files[0]);
+  };
+
+  const onSubmit = async () => {
+    try {
+      const input: UserRegisterInput = {
+        email,
+        username,
+        password,
+      };
+
+      if (file) input.picture = file;
+      const user = await services.users.register(input);
+
+      setUser(user);
+      props.history.push('/profile');
+    } catch (e) {
+      const error = e as Error;
+
+      // TODO: handle errors
+      switch (error.message) {
+        case 'auth/invalid-body':
+        case 'auth/invalid-email':
+        case 'auth/invalid-password':
+          // Wrong user input
+          break;
+        case 'auth/email-already-in-use':
+          // Email already used
+          break;
+        case 'auth/username-already-in-use':
+          // Username already used
+          break;
+        default:
+          break;
+      }
+    }
+  };
 
   return (
     <Container className="containerBg" fluid>
@@ -60,9 +88,7 @@ const Register = (props: RegisterProps): React.ReactElement => {
                   style={{ display: 'none' }}
                   accept="image/*"
                   type="file"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    handleImgChange(event, setFile, setImgChanged);
-                  }}
+                  onChange={handleImgChange}
                 />
                 {
                     imgChanged && file
@@ -85,7 +111,7 @@ const Register = (props: RegisterProps): React.ReactElement => {
                               height: '100px',
                               objectFit: 'cover',
                             }}
-                            src={file}
+                            src={URL.createObjectURL(file)}
                             roundedCircle
                           />
                         </div>
@@ -109,18 +135,10 @@ const Register = (props: RegisterProps): React.ReactElement => {
               </Form.Group>
               <Form.Group controlId="formBasicPseudo">
                 <Form.Label>
-                  {i18n.t('pseudo', { lng: localStorage.getItem('lang') as string })}
+                  {i18n.t('username', { lng: localStorage.getItem('lang') as string })}
                   *
                 </Form.Label>
-                <Form.Control type="text" placeholder="Bob" value={pseudo} onChange={(e) => { setPseudo(e.currentTarget.value); }} />
-              </Form.Group>
-              <Form.Group controlId="formBasicFirstname">
-                <Form.Label>{i18n.t('firstname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                <Form.Control type="text" placeholder="Bob" value={firstname} onChange={(e) => { setFirstname(e.currentTarget.value); }} />
-              </Form.Group>
-              <Form.Group controlId="formBasicLastname">
-                <Form.Label>{i18n.t('lastname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                <Form.Control type="text" placeholder="Durand" value={lastname} onChange={(e) => { setLastname(e.currentTarget.value); }} />
+                <Form.Control type="text" placeholder="Bob" value={username} onChange={(e) => { setUsername(e.currentTarget.value); }} />
               </Form.Group>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>
@@ -140,12 +158,8 @@ const Register = (props: RegisterProps): React.ReactElement => {
           </Card.Body>
           <Row>
             <Button
-              disabled={!pseudo || !password || !email}
-              onClick={() => {
-                setUser({
-                  id: 123, pseudo, email, firstname, lastname,
-                }); props.history.push('/profile');
-              }}
+              disabled={!username || !password || !email}
+              onClick={onSubmit}
               className="mx-auto mb-2 btn"
               variant="outline-success"
             >

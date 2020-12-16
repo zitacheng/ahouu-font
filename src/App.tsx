@@ -12,6 +12,7 @@ import Register from './Container/Account/Register';
 import './i18n';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './Store';
+import Playground from './playground';
 
 if (!localStorage.getItem('lang')) localStorage.setItem('lang', 'fr');
 
@@ -26,6 +27,7 @@ const App: React.FC = () => (
         <Route path="/lobby/:roomId" exact component={Lobby} />
         <Route path="/game/:roomId" exact component={Game} />
         <Route path="/list" exact component={PartyList} />
+        <Route path="/playground" exact component={Playground} />
         <Route path="*" exact component={NotFound} />
       </Switch>
     </Router>
