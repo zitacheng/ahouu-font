@@ -8,7 +8,6 @@ const reportWebVitals = (onPerfEntry) => {
       getFCP(onPerfEntry);
       getLCP(onPerfEntry);
       getTTFB(onPerfEntry);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }).catch((e) => {});
   }
 };

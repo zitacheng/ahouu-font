@@ -2,6 +2,36 @@ import axios from '../axios';
 import { UserRegisterInput, UserUpdateInput, User } from '../types';
 
 /**
+ * ### Verifies user's token
+ *
+ * ---
+ *
+ * @example
+ * ```typescript
+ *  try {
+ *    const user = await services.users.verify(user);
+ *  } catch (e) {
+ *    switch (e.message) {
+ *      default:
+ *        break;
+ *    }
+ *  }
+ * ```
+ *
+ * ---
+ *
+ * @error **generic/server-error** - Thrown if the no response was received from the server
+ * @error **generic/network-error** - Thrown if the any other error occurred
+ * (i.e: network error, server unreachable, ...)
+ */
+export const verify = async (current: User): Promise<boolean> => {
+  const res = await axios.post('/verify', null, { user: current });
+
+  const { valid } = res.data as { valid: boolean };
+  return valid;
+};
+
+/**
  * ### Creates and authenticates a user
  *
  * ---
