@@ -5,13 +5,15 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Image from 'react-bootstrap/Image';
 import avatar from '../../Assets/shib.jpeg';
 import werewolf from '../../Assets/loupgarou.jpeg';
 import send from '../../Assets/send.png';
 import './game.css';
 
-const card = ['villager', 'werewolf', 'witch', 'seer'];
+// const card = ['villager', 'werewolf', 'witch', 'seer'];
 
 export interface Chat {
   msg?: string;
@@ -117,11 +119,16 @@ class Game extends React.PureComponent<GameProps, GameState> {
             style={{ outlineStyle: 'none' }}
             onKeyDown={() => {}}
           >
-            <p className="text-light">
-              {i18n.t('you are', { lng: localStorage.getItem('lang') as string })}
-              {' '}
-              {user && user.card && i18n.t(card[user.card], { lng: localStorage.getItem('lang') as string })}
-            </p>
+            <OverlayTrigger
+              placement="top"
+              overlay={(
+                <Tooltip id="3">
+                  {i18n.t('check', { lng: localStorage.getItem('lang') as string })}
+                </Tooltip>
+            )}
+            >
+              <Image className="miniCard" src={werewolf} />
+            </OverlayTrigger>
           </div>
           <Row xs={1} sm={2} md={2} lg={2} xl={3}>
             <Col xs={12} sm={6} md={4} lg={3} xl={3}>
@@ -185,9 +192,14 @@ class Game extends React.PureComponent<GameProps, GameState> {
           show={displayCard}
           onHide={() => { this.setState({ displayCard: false }); }}
         >
-          <Modal.Body>
-            <Image className="mx-auto mb-2 identity" src={werewolf} />
-          </Modal.Body>
+          <Row className="mx-0 p-2 align-items-center">
+            <Col>
+              <Image className="mx-auto mb-2 identity" src={werewolf} />
+            </Col>
+            <Col className="text-center pt-auto">
+              <p className="mt-auto rule-text">{i18n.t('wolf-rule', { lng: localStorage.getItem('lang') as string })}</p>
+            </Col>
+          </Row>
         </Modal>
       </Container>
     );

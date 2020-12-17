@@ -38,6 +38,7 @@ const resources = {
       werewolf: 'Werewolf',
       witch: 'Witch',
       seer: 'Seer',
+      check: 'Check you card',
       'auth/invalid-body': 'Error on request body.',
       'auth/invalid-email': 'Your email is invalid.',
       'auth/invalid-password': 'Your password is invalid.',
@@ -51,6 +52,7 @@ const resources = {
       'users/username-already-in-used': 'Username already exist, please choose another one.',
       'auth/email-already-in-used': 'Email already exist, please choose another one.',
       'auth/username-already-in-used': 'Username already exist, please choose another one.',
+      'wolf-rule': 'You can eliminate one player each night, your goal is to eliminate every player that is not a wolf.',
     },
   },
   fr: {
@@ -87,6 +89,7 @@ const resources = {
       werewolf: 'Loup garou',
       witch: 'Sorcière',
       seer: 'Voyante',
+      check: 'Voir votre carte',
       'auth/invalid-body': 'Erreur de requête.',
       'auth/invalid-email': 'Addresse email invalide.',
       'auth/invalid-password': 'Mot de passe invalide.',
@@ -99,6 +102,7 @@ const resources = {
       'users/username-already-in-used': "Nom d'utilisateur existant, veuillez saisir une autre.",
       'auth/email-already-in-used': 'Email existant, veuillez saisir une autre.',
       'auth/username-already-in-used': "Nom d'utilisateur existant, veuillez saisir une autre.",
+      'wolf-rule': "Vous pouvez éliminer un joueur par nuit, votre but est d'éliminer tout les gentils.",
     },
   },
 };
