@@ -31,8 +31,6 @@ function handleImgChange(event: React.ChangeEvent<HTMLInputElement>,
 const Register = (props: RegisterProps): React.ReactElement => {
   const [pseudo, setPseudo] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [firstname, setFirstname] = React.useState('');
-  const [lastname, setLastname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [imgChanged, setImgChanged] = React.useState(false);
   const inputOpenFileRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
@@ -114,14 +112,6 @@ const Register = (props: RegisterProps): React.ReactElement => {
                 </Form.Label>
                 <Form.Control type="text" placeholder="Bob" value={pseudo} onChange={(e) => { setPseudo(e.currentTarget.value); }} />
               </Form.Group>
-              <Form.Group controlId="formBasicFirstname">
-                <Form.Label>{i18n.t('firstname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                <Form.Control type="text" placeholder="Bob" value={firstname} onChange={(e) => { setFirstname(e.currentTarget.value); }} />
-              </Form.Group>
-              <Form.Group controlId="formBasicLastname">
-                <Form.Label>{i18n.t('lastname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                <Form.Control type="text" placeholder="Durand" value={lastname} onChange={(e) => { setLastname(e.currentTarget.value); }} />
-              </Form.Group>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>
                   {i18n.t('email', { lng: localStorage.getItem('lang') as string })}
@@ -143,7 +133,7 @@ const Register = (props: RegisterProps): React.ReactElement => {
               disabled={!pseudo || !password || !email}
               onClick={() => {
                 setUser({
-                  id: 123, pseudo, email, firstname, lastname,
+                  id: 123, pseudo, email,
                 }); props.history.push('/profile');
               }}
               className="mx-auto mb-2 btn"

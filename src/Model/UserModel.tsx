@@ -7,8 +7,6 @@ interface UserInterface {
   id: number;
   dead?: boolean;
   email?: string;
-  firstname?: string;
-  lastname?: string;
 }
 
 export interface UserModel {
@@ -19,6 +17,7 @@ export interface UserModel {
 const user: UserModel = {
   item: undefined,
   setUser: action((state, payload) => {
+    // TODO copy || justifier
     state.item = payload; // eslint-disable-line no-param-reassign
   }),
 };

@@ -47,7 +47,7 @@ class Lobby extends React.PureComponent<LobbyProps, LobbyState> {
           }
           </Row>
           <Row className="">
-            <Button onClick={() => { history?.push('/game'); }} className="mx-auto my-4 btn" variant="outline-success">{i18n.t('play', { lng: localStorage.getItem('lang') as string })}</Button>
+            <Button onClick={() => { history?.push('/game/78'); }} className="mx-auto my-4 btn" variant="outline-success">{i18n.t('play', { lng: localStorage.getItem('lang') as string })}</Button>
           </Row>
         </Col>
       </Container>

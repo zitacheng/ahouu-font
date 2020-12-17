@@ -46,7 +46,7 @@ const resources = {
       pseudo: "Nom d'utilisateur",
       'join game': 'Rejoindre une partie',
       'create game': 'Créer une partie',
-      'list game': 'List de jeu en cours',
+      'list game': 'Liste de jeu en cours',
       id: 'ID',
       name: 'Nom',
       players: 'Joueurs',

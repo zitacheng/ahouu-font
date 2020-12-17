@@ -114,6 +114,7 @@ class Game extends React.PureComponent<GameProps, GameState> {
             onClick={() => { this.setState({ displayCard: true }); }}
             role="button"
             tabIndex={0}
+            style={{ outlineStyle: 'none' }}
             onKeyDown={() => {}}
           >
             <p className="text-light">

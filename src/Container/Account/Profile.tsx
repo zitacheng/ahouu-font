@@ -15,7 +15,7 @@ import { History } from 'history';
 import logo from '../../Assets/logo.png';
 import profile from '../../Assets/profile.jpg';
 import emailIcon from '../../Assets/email.png';
-import userIcon from '../../Assets/user.png';
+// import userIcon from '../../Assets/user.png';
 import edit from '../../Assets/edit.png';
 import upload from '../../Assets/upload.png';
 import { useStoreState, useStoreActions } from '../../Store';
@@ -38,8 +38,6 @@ const Profile = (props: ProfileProps): React.ReactElement => {
   const user = useStoreState((state) => state.item);
   const [pseudo, setPseudo] = React.useState(user?.pseudo as string);
   const [password, setPassword] = React.useState('');
-  const [firstname, setFirstname] = React.useState(user?.firstname as string);
-  const [lastname, setLastname] = React.useState(user?.lastname as string);
   const [email, setEmail] = React.useState(user?.email as string);
   const [editInf, setEditInf] = React.useState(false);
   const [createRoom, setCreateRoom] = React.useState(false);
@@ -77,10 +75,6 @@ const Profile = (props: ProfileProps): React.ReactElement => {
               <Image className="mx-auto avatar-circle mb-4" src={profile} />
               <p className="text-center pseudo">{pseudo}</p>
               <Row>
-                <Image className="profile-icon mr-3" src={userIcon} />
-                <p>{`${firstname} ${lastname}`}</p>
-              </Row>
-              <Row>
                 <Image className="profile-icon mr-3" src={emailIcon} />
                 <p>{email}</p>
               </Row>
@@ -108,7 +102,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
           </Badge>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="dark" onClick={() => { props.history.push('/lobby'); }}>{i18n.t('create', { lng: localStorage.getItem('lang') as string })}</Button>
+          <Button variant="dark" onClick={() => { props.history.push('/lobby/8097'); }}>{i18n.t('create', { lng: localStorage.getItem('lang') as string })}</Button>
         </Modal.Footer>
       </Modal>
       <Modal centered show={editInf} onHide={() => { setEditInf(false); }}>
@@ -187,16 +181,6 @@ const Profile = (props: ProfileProps): React.ReactElement => {
                   *
                 </Form.Label>
                 <Form.Control type="password" value={password} onChange={(e) => { setPassword(e.currentTarget.value); }} />
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group controlId="formBasicFirstname" as={Col}>
-                <Form.Label>{i18n.t('firstname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                <Form.Control type="text" placeholder="Bob" value={firstname} onChange={(e) => { setFirstname(e.currentTarget.value); }} />
-              </Form.Group>
-              <Form.Group controlId="formBasicLastname" as={Col}>
-                <Form.Label>{i18n.t('lastname', { lng: localStorage.getItem('lang') as string })}</Form.Label>
-                <Form.Control type="text" placeholder="Durand" value={lastname} onChange={(e) => { setLastname(e.currentTarget.value); }} />
               </Form.Group>
             </Form.Row>
             <Form.Group controlId="formBasicEmail">

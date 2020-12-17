@@ -26,7 +26,7 @@ const PartyList = (props: PartyListProps): React.ReactElement => (
           </tr>
         </thead>
         <tbody>
-          <tr style={{ cursor: 'pointer' }} onClick={() => { props.history?.push('/lobby'); }}>
+          <tr style={{ cursor: 'pointer' }} onClick={() => { props.history?.push('/lobby/45'); }}>
             <td>1</td>
             <td>test</td>
             <td>10</td>
