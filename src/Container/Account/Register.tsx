@@ -12,6 +12,7 @@ import logo from '../../Assets/logo.png';
 import upload from '../../Assets/upload.png';
 import { useStoreActions } from '../../Store';
 import services, { UserRegisterInput } from '../../services';
+import notify from '../../Component/Notif';
 
 export interface RegisterProps { history: History;}
 
@@ -47,23 +48,7 @@ const Register = (props: RegisterProps): React.ReactElement => {
       props.history.push('/profile');
     } catch (e) {
       const error = e as Error;
-
-      // TODO: handle errors
-      switch (error.message) {
-        case 'auth/invalid-body':
-        case 'auth/invalid-email':
-        case 'auth/invalid-password':
-          // Wrong user input
-          break;
-        case 'auth/email-already-in-use':
-          // Email already used
-          break;
-        case 'auth/username-already-in-use':
-          // Username already used
-          break;
-        default:
-          break;
-      }
+      notify('Error', i18n.t(error.message, { lng: localStorage.getItem('lang') as string }), true);
     }
   };
 

@@ -12,6 +12,7 @@ const notify = (title: string, content: string, error: boolean): void => {
     dismiss: {
       duration: 5000,
       onScreen: true,
+      showIcon: true,
     },
   });
 };

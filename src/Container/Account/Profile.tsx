@@ -20,6 +20,7 @@ import edit from '../../Assets/edit.png';
 import upload from '../../Assets/upload.png';
 import { useStoreState, useStoreActions } from '../../Store';
 import services, { UserUpdateInput } from '../../services';
+import notify from '../../Component/Notif';
 
 export interface ProfileProps { history: History;}
 
@@ -65,26 +66,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
       setEditInf(false);
     } catch (e) {
       const error = e as Error;
-
-      // TODO: handle errors
-      switch (error.message) {
-        case 'auth/invalid-token':
-          props.history.push('/login');
-          break;
-        case 'users/invalid-body':
-        case 'users/invalid-email':
-        case 'users/invalid-password':
-          // Wrong user input
-          break;
-        case 'users/email-already-in-used':
-          // Email already used
-          break;
-        case 'users/username-already-in-used':
-          // Username already used
-          break;
-        default:
-          break;
-      }
+      notify('Error', i18n.t(error.message, { lng: localStorage.getItem('lang') as string }), true);
     }
   };
 

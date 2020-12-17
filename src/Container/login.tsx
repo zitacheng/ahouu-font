@@ -27,7 +27,6 @@ const Login = (props: LoginProps): React.ReactElement => {
 
       props.history.push('/profile');
     } catch (e) {
-      // TODO: handle errors
       const error = e as Error;
       notify('Error', i18n.t(error.message, { lng: localStorage.getItem('lang') as string }), true);
     }
