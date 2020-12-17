@@ -1,11 +1,13 @@
-import { createStore, createTypedHooks } from 'easy-peasy';
+import { createStore, createTypedHooks, persist } from 'easy-peasy';
 import user, { UserModel } from './Model/UserModel';
 
-const store = createStore(user, {
-  name: 'store',
-});
+type Store = {
+  user: UserModel
+};
 
-const { useStoreActions, useStoreState, useStoreDispatch } = createTypedHooks<UserModel>();
+const store = createStore(persist({ user }));
+
+const { useStoreActions, useStoreState, useStoreDispatch } = createTypedHooks<Store>();
 
 export { useStoreActions, useStoreDispatch, useStoreState };
 

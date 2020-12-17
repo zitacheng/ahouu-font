@@ -7,7 +7,7 @@ const resources = {
   en: {
     translation: {
       'Welcome to React': 'Welcome to React and react-i18next',
-      pseudo: 'Pseudo',
+      username: 'Username',
       'join game': 'Join game',
       'create game': 'Create game',
       'list game': 'List of current games',
@@ -38,12 +38,17 @@ const resources = {
       werewolf: 'Werewolf',
       witch: 'Witch',
       seer: 'Seer',
+      'auth/invalid-body': 'Error on request body.',
+      'auth/invalid-email': 'Your email is invalid.',
+      'auth/invalid-password': 'Your password is invalid.',
+      'auth/user-not-found': 'User do not exist.',
+      'auth/invalid-credentials': 'Your password is incorrect.',
     },
   },
   fr: {
     translation: {
       'Welcome to React': 'Bienvenue à React et react-i18next',
-      pseudo: "Nom d'utilisateur",
+      username: "Nom d'utilisateur",
       'join game': 'Rejoindre une partie',
       'create game': 'Créer une partie',
       'list game': 'Liste de jeu en cours',
@@ -74,6 +79,11 @@ const resources = {
       werewolf: 'Loup garou',
       witch: 'Sorcière',
       seer: 'Voyante',
+      'auth/invalid-body': 'Erreur de requête.',
+      'auth/invalid-email': 'Addresse email invalide.',
+      'auth/invalid-password': 'Mot de passe invalide.',
+      'auth/user-not-found': "Le compte n'existe pas.",
+      'auth/invalid-credentials': 'Mot de passe incorrect.',
     },
   },
 };

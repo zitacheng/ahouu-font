@@ -1,17 +1,9 @@
 import { Action, action } from 'easy-peasy';
-
-interface UserInterface {
-  pseudo: string;
-  card?: number;
-  isWolf?: boolean;
-  id: number;
-  dead?: boolean;
-  email?: string;
-}
+import { User } from '../services';
 
 export interface UserModel {
-  item?: UserInterface;
-  setUser: Action<UserModel, UserInterface>;
+  item?: User;
+  setUser: Action<UserModel, User | undefined>;
 }
 
 const user: UserModel = {
