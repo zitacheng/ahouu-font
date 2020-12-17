@@ -22,7 +22,7 @@ const Register = (props: RegisterProps): React.ReactElement => {
   const [imgChanged, setImgChanged] = React.useState(false);
   const inputOpenFileRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
   const [file, setFile] = React.useState<File | null>(null);
-  const setUser = useStoreActions((actions) => actions.setUser);
+  const setUser = useStoreActions((actions) => actions.user.setUser);
 
   const handleImgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();

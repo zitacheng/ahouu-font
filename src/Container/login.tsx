@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { History } from 'history';
-import { useStoreActions, useStoreState } from '../Store';
+import { useStoreActions } from '../Store';
 import logo from '../Assets/logo.png';
 import services from '../services';
 
@@ -17,19 +17,14 @@ export interface LoginProps { history: History;}
 const Login = (props: LoginProps): React.ReactElement => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const setUser = useStoreActions((actions) => actions.setUser);
-  const user = useStoreState((state) => state.item);
-
-  React.useEffect(() => {
-    if (!user || !user.token) return;
-
-    // TODO: verify stored token and auto-login if valid
-    props.history.push('/profile');
-  }, [user, props]);
+  const setUser = useStoreActions((actions) => actions.user.setUser);
 
   const onSubmit = async () => {
     try {
-      setUser(await services.users.signIn(email, password));
+      const singedIn = await services.users.signIn(email, password);
+      setUser(singedIn);
+
+      props.history.push('/profile');
     } catch (e) {
       // TODO: handle errors
       const error = e as Error;

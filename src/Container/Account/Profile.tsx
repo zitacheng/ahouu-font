@@ -24,7 +24,7 @@ import services, { UserUpdateInput } from '../../services';
 export interface ProfileProps { history: History;}
 
 const Profile = (props: ProfileProps): React.ReactElement => {
-  const user = useStoreState((state) => state.item);
+  const user = useStoreState((state) => state.user.item);
   const [username, setUsername] = React.useState(user?.username as string);
   const [password, setPassword] = React.useState('');
   const [email, setEmail] = React.useState(user?.email as string);
@@ -34,7 +34,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
   const [publicMode, setPublicMode] = React.useState(false);
   const inputOpenFileRef: React.RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
   const [file, setFile] = React.useState<File | null>(null);
-  const setUser = useStoreActions((actions) => actions.setUser);
+  const setUser = useStoreActions((actions) => actions.user.setUser);
 
   React.useEffect(() => {
     if (!user) return;
@@ -69,7 +69,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
       // TODO: handle errors
       switch (error.message) {
         case 'users/invalid-token':
-          // Redirect to login page
+          props.history.push('/login');
           break;
         case 'users/invalid-body':
         case 'users/invalid-email':

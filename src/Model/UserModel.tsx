@@ -3,7 +3,7 @@ import { User } from '../services';
 
 export interface UserModel {
   item?: User;
-  setUser: Action<UserModel, User>;
+  setUser: Action<UserModel, User | undefined>;
 }
 
 const user: UserModel = {
