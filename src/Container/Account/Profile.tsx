@@ -68,7 +68,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
 
       // TODO: handle errors
       switch (error.message) {
-        case 'users/invalid-token':
+        case 'auth/invalid-token':
           props.history.push('/login');
           break;
         case 'users/invalid-body':

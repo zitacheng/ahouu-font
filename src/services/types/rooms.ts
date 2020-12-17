@@ -1,13 +1,12 @@
 export type Room = {
-  id: string // TODO: unique
+  id: string
   admin: string
   name: string
-  max: number // min by default 6
+  max: number
   players: Player[]
   state: RoomState
-  messages: Message[] // transfer message on rematch
+  messages: Message[]
   private: boolean
-  password?: string // hash
 };
 
 export enum RoomState {
@@ -17,8 +16,8 @@ export enum RoomState {
 }
 
 export type Player = {
-  userId: string // TODO: exists and unique in the room
-  role: PlayerRole // TODO: unique in the room
+  userId: string
+  role: PlayerRole
   state: PlayerState
   won?: boolean
 };
@@ -47,10 +46,12 @@ export type Message = {
 };
 
 export enum MessageType {
-  GENERALE = 'none', // TODO: GENERALE allowed only while awake
+  GENERALE = 'none',
   WOLF = 'none',
-  EVENT = 'event', // TODO: system events -> trad from lang
+  EVENT = 'event',
 }
+
+export type RoomCreateInput = Pick<Room, 'name' | 'max'> & { password?: string };
 
 export enum RoomEventsAction {
   JOIN = 'join',
@@ -67,11 +68,11 @@ export enum RoomEventsListener {
   USER_LEAVED = 'user-leaved',
   USER_KICKED = 'user-kicked',
   NEW_MESSAGE = 'new-message',
-  GAME_STARTED = 'game-started', // receive roles
+  GAME_STARTED = 'game-started',
   VILLAGE_SLEEPS = 'village-sleeps',
   VILLAGE_AWAKES = 'village-awakes',
   VILLAGE_VOTE = 'village-vote',
   ROLE_BASED_AWAKE = 'role-based-awake',
   ROLE_BASED_ACTION_RESULT = 'role-based-action-result',
-  GAME_ENDED = 'game-ended', // with result / close room / allow create new room from this one
+  GAME_ENDED = 'game-ended',
 }

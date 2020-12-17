@@ -68,7 +68,9 @@ export const verify = async (current: User): Promise<boolean> => {
  *
  * @error **auth/invalid-body** - Thrown if the body is missing or empty
  * @error **auth/invalid-email** - Thrown if the email is missing or empty
- * @error **auth/invalid-password** - Thrown if the password is missing or empty
+ * @error **auth/invalid-password** -
+ * Thrown if the password is empty or his strength is not sufficient
+ * (letters and/or numbers only, at least 6 characters)
  * @error **auth/email-already-in-use** - Thrown if the given email is already used
  * @error **auth/username-already-in-use** - Thrown if the given username is already used
  * @error **generic/server-error** - Thrown if the no response was received from the server
@@ -149,7 +151,7 @@ export const signIn = async (email: string, password: string): Promise<User> => 
  *    });
  *  } catch (e) {
  *    switch (e.message) {
- *      case 'users/invalid-token':
+ *      case 'auth/invalid-token':
  *        // Redirect to login page
  *        break;
  *      case 'users/invalid-body':
@@ -171,14 +173,14 @@ export const signIn = async (email: string, password: string): Promise<User> => 
  *
  * ---
  *
- * @error **users/invalid-token** - Thrown if the given token has expired
+ * @error **auth/invalid-token** - Thrown if the given token has expired
  * * All requests will result in a "auth/invalid-token" error
  * * The token must be refreshed
  * * The user must immediately be redirected to the login page
  * @error **users/invalid-body** - Thrown if the body is missing or empty
  * @error **users/invalid-email** - Thrown if the email has wrong format
  * @error **users/invalid-password** - Thrown if the password strength is not sufficient
- * (letters and/or numbers, at least 6 characters)
+ * (letters and/or numbers only, at least 6 characters)
  * @error **users/email-already-in-used** - Thrown if the given email is already used
  * @error **users/username-already-in-used** - Thrown if the given username is already used
  * @error **generic/server-error** - Thrown if the no response was received from the server
