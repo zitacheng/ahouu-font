@@ -39,6 +39,7 @@ const resources = {
       witch: 'Witch',
       seer: 'Seer',
       check: 'Check you card',
+      kickMsg: 'Are you sure to kick this user of the lobby?',
       'auth/invalid-body': 'Error on request body.',
       'auth/invalid-email': 'Your email is invalid.',
       'auth/invalid-password': 'Your password is invalid.',
@@ -103,6 +104,7 @@ const resources = {
       'auth/email-already-in-used': 'Email existant, veuillez saisir une autre.',
       'auth/username-already-in-used': "Nom d'utilisateur existant, veuillez saisir une autre.",
       'wolf-rule': "Vous pouvez éliminer un joueur par nuit, votre but est d'éliminer tout les gentils.",
+      kickMsg: 'Êtes vous sure de vouloir le kick?',
     },
   },
 };
