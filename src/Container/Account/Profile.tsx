@@ -28,6 +28,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
   const user = useStoreState((state) => state.user.item);
   const [username, setUsername] = React.useState(user?.username as string);
   const [password, setPassword] = React.useState('');
+  const [roomPassword, setRoomPassword] = React.useState('');
   const [email, setEmail] = React.useState(user?.email as string);
   const [picture, setPicture] = React.useState<string>(user?.picture as string);
   const [editInf, setEditInf] = React.useState(false);
@@ -116,15 +117,27 @@ const Profile = (props: ProfileProps): React.ReactElement => {
       </Col>
       <Modal centered show={createRoom} onHide={() => { setCreateRoom(false); }}>
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title id="contained-modal-title-vcenter" className="text-light">
             {i18n.t('create game', { lng: localStorage.getItem('lang') as string })}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Badge pill className="click mr-2 p-2" variant={`${publicMode ? 'info' : 'secondary'}`} onClick={() => { setPublicMode(true); }}>
+          {
+            !publicMode
+            && (
+            <Form.Group controlId="formBasicPassRoom" as={Col}>
+              <Form.Label className="text-light">
+                {i18n.t('password', { lng: localStorage.getItem('lang') as string })}
+                *
+              </Form.Label>
+              <Form.Control type="password" placeholder="" value={roomPassword} onChange={(e) => { setRoomPassword(e.currentTarget.value); }} />
+            </Form.Group>
+            )
+          }
+          <Badge pill className="click mr-2 p-2 ml-3" variant={`${publicMode ? 'info' : 'secondary'}`} onClick={() => { setPublicMode(true); }}>
             {i18n.t('public', { lng: localStorage.getItem('lang') as string })}
           </Badge>
-          <Badge pill className="click p-2" variant={`${publicMode ? 'secondary' : 'info'}`} onClick={() => { setPublicMode(false); }}>
+          <Badge pill className="click p-2  ml-3" variant={`${publicMode ? 'secondary' : 'info'}`} onClick={() => { setPublicMode(false); }}>
             {i18n.t('private', { lng: localStorage.getItem('lang') as string })}
           </Badge>
         </Modal.Body>
@@ -134,7 +147,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
       </Modal>
       <Modal centered show={editInf} onHide={() => { setEditInf(false); }}>
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title id="contained-modal-title-vcenter" className="text-light">
             {i18n.t('account inf', { lng: localStorage.getItem('lang') as string })}
           </Modal.Title>
         </Modal.Header>
@@ -194,14 +207,14 @@ const Profile = (props: ProfileProps): React.ReactElement => {
             </Form.Group>
             <Form.Row>
               <Form.Group controlId="formBasicPseudo" as={Col}>
-                <Form.Label>
+                <Form.Label className="text-light">
                   {i18n.t('username', { lng: localStorage.getItem('lang') as string })}
                   *
                 </Form.Label>
                 <Form.Control type="text" placeholder="Bob" value={username} onChange={(e) => { setUsername(e.currentTarget.value); }} />
               </Form.Group>
               <Form.Group controlId="formBasicPass" as={Col}>
-                <Form.Label>
+                <Form.Label className="text-light">
                   {i18n.t('password', { lng: localStorage.getItem('lang') as string })}
                   *
                 </Form.Label>
@@ -209,7 +222,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
               </Form.Group>
             </Form.Row>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>
+              <Form.Label className="text-light">
                 {i18n.t('email', { lng: localStorage.getItem('lang') as string })}
                 *
               </Form.Label>

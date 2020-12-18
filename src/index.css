@@ -99,3 +99,22 @@ code {
   outline-style: none;
   box-shadow: 0px 8px 10px 1px rgba(0, 0, 0, 0.14);
 }
+
+.loading {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+}
+
+.close {
+  color: white !important;
+  opacity: 1;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
