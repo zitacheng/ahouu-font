@@ -100,7 +100,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
               <Image className="mx-auto avatar-circle mb-4" src={picture || profile} />
               <Row>
                 <Image className="profile-icon mr-3" src={userIcon} />
-                <p className="text-center username">{username}</p>
+                <p className="text-center">{username}</p>
               </Row>
               <Row>
                 <Image className="profile-icon mr-3" src={emailIcon} />

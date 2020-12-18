@@ -50,7 +50,7 @@ const Lobby = (props: LobbyProps): React.ReactElement => {
         <Row className="mx-0 p-2 align-items-center">
           <p className="text-light mx-auto mt-4 font-weight-bold">{i18n.t('kickMsg', { lng: localStorage.getItem('lang') as string })}</p>
         </Row>
-        <Button onClick={() => { setPlayers([]); }} className="mx-auto my-4 btn" variant="outline-success">Oui</Button>
+        <Button onClick={() => { setPlayers([]); }} className="mx-auto my-4 btn" variant="outline-success">{i18n.t('yes', { lng: localStorage.getItem('lang') as string })}</Button>
       </Modal>
     </Container>
   );
