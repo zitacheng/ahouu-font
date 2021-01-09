@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ReactLoading from 'react-loading';
 import { History } from 'history';
-import { useStoreActions } from '../Store';
+import { useStoreActions, useStoreState } from '../Store';
 import logo from '../Assets/logo.png';
 import services from '../services';
 import notify from '../Component/Notif';
@@ -17,10 +17,17 @@ import notify from '../Component/Notif';
 export interface LoginProps { history: History;}
 
 const Login = (props: LoginProps): React.ReactElement => {
+  const { history } = props;
+
   const [email, setEmail] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [password, setPassword] = React.useState('');
+  const user = useStoreState((state) => state.user.item);
   const setUser = useStoreActions((actions) => actions.user.setUser);
+
+  React.useEffect(() => {
+    if (user) history.push('/profile');
+  }, [user, history]);
 
   const onSubmit = async () => {
     setLoading(true);
@@ -28,7 +35,7 @@ const Login = (props: LoginProps): React.ReactElement => {
       const singedIn = await services.users.signIn(email, password);
       setUser(singedIn);
 
-      props.history.push('/profile');
+      history.push('/profile');
     } catch (e) {
       const error = e as Error;
       notify('Error', i18n.t(error.message, { lng: localStorage.getItem('lang') as string }), true);
@@ -74,7 +81,7 @@ const Login = (props: LoginProps): React.ReactElement => {
                   >
                     {i18n.t('connect', { lng: localStorage.getItem('lang') as string })}
                   </Button>
-                  <Button onClick={() => { props.history.push('/Register'); }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('register', { lng: localStorage.getItem('lang') as string })}</Button>
+                  <Button onClick={() => { history.push('/Register'); }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('register', { lng: localStorage.getItem('lang') as string })}</Button>
                 </Row>
               </Card>
             </Col>
