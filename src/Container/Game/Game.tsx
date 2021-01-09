@@ -53,7 +53,6 @@ const Game = ({ history, match }: GameProps): React.ReactElement => {
   const [displayWolfChoices, setDisplayWolfChoices] = React.useState(false);
   const [displayWitchChoices, setDisplayWitchChoices] = React.useState(false);
   const [displayUserChoices, setDisplayUserChoices] = React.useState(false);
-  const [checked, setChecked] = React.useState(false);
   const [vote, setVote] = React.useState('');
   const [buttonOptions, setButtonOptions] = React.useState<{
     name: string,
