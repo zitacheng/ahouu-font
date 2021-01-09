@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import cloneDeep from 'lodash.clonedeep';
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import conf from './config';
 import { User } from './types';

@@ -19,7 +19,7 @@ import userIcon from '../../Assets/user.png';
 import edit from '../../Assets/edit.png';
 import upload from '../../Assets/upload.png';
 import { useStoreState, useStoreActions } from '../../Store';
-import services, { UserUpdateInput } from '../../services';
+import services, { RoomCreateInput, UserUpdateInput } from '../../services';
 import notify from '../../Component/Notif';
 
 export interface ProfileProps { history: History;}
@@ -71,6 +71,40 @@ const Profile = (props: ProfileProps): React.ReactElement => {
     }
   };
 
+  const signOut = () => {
+    setUser(undefined);
+    props.history.push('/');
+  };
+
+  const onCreateRoom = async () => {
+    if (!user) return;
+
+    try {
+      const input: RoomCreateInput = {
+        password,
+      };
+
+      const room = await services.rooms.create(user, input);
+
+      props.history.push(`/lobby/${room.id}`);
+    } catch (e) {
+      const error = e as Error;
+
+      switch (error.message) {
+        case 'auth/invalid-token':
+          signOut();
+          break;
+        case 'rooms/invalid-max':
+        case 'rooms/invalid-password':
+          // TODO: handle error
+          // Wrong user input
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
   return (
     <Container className="containerBg" fluid>
       <Col>
@@ -111,7 +145,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
           <Row>
             <Button onClick={() => { props.history.push('/list'); }} className="mx-auto mb-2 btn" variant="outline-success">{i18n.t('join game', { lng: localStorage.getItem('lang') as string })}</Button>
             <Button onClick={() => { setCreateRoom(true); }} className="mx-auto mb-2 btn" variant="outline-warning">{i18n.t('create game', { lng: localStorage.getItem('lang') as string })}</Button>
-            <Button onClick={() => { props.history.push('/'); }} className="mx-auto mb-2 btn" variant="outline-danger">{i18n.t('deconnection', { lng: localStorage.getItem('lang') as string })}</Button>
+            <Button onClick={signOut} className="mx-auto mb-2 btn" variant="outline-danger">{i18n.t('deconnection', { lng: localStorage.getItem('lang') as string })}</Button>
           </Row>
         </Card>
       </Col>
@@ -142,7 +176,7 @@ const Profile = (props: ProfileProps): React.ReactElement => {
           </Badge>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="dark" onClick={() => { props.history.push('/lobby/8097'); }}>{i18n.t('create', { lng: localStorage.getItem('lang') as string })}</Button>
+          <Button variant="dark" onClick={onCreateRoom}>{i18n.t('create', { lng: localStorage.getItem('lang') as string })}</Button>
         </Modal.Footer>
       </Modal>
       <Modal centered show={editInf} onHide={() => { setEditInf(false); }}>
