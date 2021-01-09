@@ -34,6 +34,7 @@ export default class Game {
       .on('disconnect', () => { this.connected = false; });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private emit = (event: RoomActions, ...args: any[]) => this.socket.emit(event, ...args);
 
   public isConnected = (): boolean => this.connected;
